@@ -1,3 +1,9 @@
+/**
+ * ScheduleDAO
+ * - 구현된 CRUD 기능:
+ *      R: getScheduleByDateTime() — 날짜·시간 입력으로 해당 공연 스케줄 조회
+ */
+
 package dao;
 
 import db.DBConnection;
@@ -6,9 +12,10 @@ import java.sql.*;
 
 public class ScheduleDAO {
 
+    /** 입력된 날짜·시간과 일치하는 공연 스케줄 조회 (초 단위 보정 포함) */
     public Schedule getScheduleByDateTime(String dateTimeInput) {
 
-        // 초가 없으면 보정
+        // 초가 없으면 자동으로 ":00" 보정
         if (dateTimeInput.length() == 16) {
             dateTimeInput += ":00";
         }
@@ -41,8 +48,8 @@ public class ScheduleDAO {
         return null;
     }
 
-
 }
+
 
 
 

@@ -1,3 +1,10 @@
+/**
+ * EventDAO
+ * - 구현된 CRUD 기능:
+ *      R: getEventByTitle() — 이벤트 제목으로 이벤트 상세 조회
+ *         getSeatInfoByEventId() — 이벤트 ID로 좌석/티켓 정보 조회
+ */
+
 package dao;
 
 import db.DBConnection;
@@ -6,9 +13,9 @@ import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
 
-
 public class EventDAO {
 
+    /** 이벤트 제목(event_title)으로 이벤트 상세 정보 조회 */
     public Event getEventByTitle(String title) {
         String sql = "SELECT * FROM event WHERE event_title = ?";
 
@@ -35,6 +42,7 @@ public class EventDAO {
         return null;
     }
 
+    /** 이벤트 ID로 해당 공연의 좌석/가격/등급/예매상태 목록 조회 */
     public List<String> getSeatInfoByEventId(Long eventId) {
         List<String> list = new ArrayList<>();
 

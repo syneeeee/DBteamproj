@@ -1,3 +1,10 @@
+/**
+ * CartItemDAO
+ * - 구현된 CRUD 기능:
+ *      R: getItemsByCartId() — 특정 cartId의 장바구니 아이템 목록 조회
+ *      D: deleteByCartId() — cartId 기준으로 장바구니 아이템 전체 삭제
+ */
+
 package dao;
 
 import db.DBConnection;
@@ -8,6 +15,7 @@ import java.util.List;
 
 public class CartItemDAO {
 
+    /** 특정 장바구니 ID에 포함된 모든 CartItem 목록 조회 */
     public List<CartItem> getItemsByCartId(Long cartId) {
         List<CartItem> list = new ArrayList<>();
 
@@ -49,6 +57,7 @@ public class CartItemDAO {
         return list;
     }
 
+    /** 해당 장바구니에 담긴 모든 CartItem 삭제 (카트 자체는 삭제 X) */
     public void deleteByCartId(Long cartId) {
         String sql = "DELETE FROM cart_item WHERE cart_id = ?";
 
@@ -63,3 +72,4 @@ public class CartItemDAO {
         }
     }
 }
+

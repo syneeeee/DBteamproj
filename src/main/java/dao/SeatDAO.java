@@ -1,3 +1,9 @@
+/**
+ * SeatDAO
+ * - 구현된 CRUD 기능:
+ *      R: getSeatByLabel() — 좌석 라벨(예: A12)로 좌석 정보 조회
+ */
+
 package dao;
 
 import db.DBConnection;
@@ -6,6 +12,7 @@ import java.sql.*;
 
 public class SeatDAO {
 
+    /** 좌석 라벨 (예: A12) 를 행/번호로 분리하여 해당 좌석 정보 조회 */
     public Seat getSeatByLabel(String seatLabel) {
         String row = seatLabel.substring(0, 1);
         String number = seatLabel.substring(1);

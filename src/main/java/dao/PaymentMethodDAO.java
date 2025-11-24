@@ -1,3 +1,12 @@
+/**
+ * PaymentMethodDAO
+ * - 구현된 CRUD 기능:
+ *      R: getPaymentMethodsByUserId() — 사용자 결제수단 목록 조회
+ *         isValidMethod() — 특정 결제수단이 해당 사용자의 것인지 검증
+ *         getDefaultMethod() — 사용자 기본 결제수단 조회
+ *         getMethodType() — 결제수단 타입 조회 (CARD, KAKAO_PAY 등)
+ */
+
 package dao;
 
 import db.DBConnection;
@@ -7,7 +16,7 @@ import java.util.List;
 
 public class PaymentMethodDAO {
 
-    // 1. 사용자 결제수단 전체 조회
+    /** userId 기준으로 등록된 결제수단 전체 조회 */
     public List<String> getPaymentMethodsByUserId(Long userId) {
         List<String> list = new ArrayList<>();
         String sql =
@@ -33,7 +42,7 @@ public class PaymentMethodDAO {
         return list;
     }
 
-    // 2. 입력한 payment_method_id가 해당 user_id의 것인지 검증
+    /** payment_method_id가 실제로 해당 userId의 결제수단인지 검증 */
     public boolean isValidMethod(Long userId, Long paymentMethodId) {
         String sql =
                 "SELECT 1 FROM payment_method WHERE user_id = ? AND payment_method_id = ?";
@@ -45,13 +54,13 @@ public class PaymentMethodDAO {
             pstmt.setLong(2, paymentMethodId);
             ResultSet rs = pstmt.executeQuery();
 
-            return rs.next(); // 존재한다면 true
+            return rs.next(); // 존재하면 true
 
         } catch (Exception e) { e.printStackTrace(); }
         return false;
     }
 
-    // 3. 사용자 기본 결제수단 조회
+    /** userId 기준 기본 결제수단 ID 조회 */
     public Long getDefaultMethod(Long userId) {
         String sql =
                 "SELECT payment_method_id FROM payment_method " +
@@ -68,6 +77,7 @@ public class PaymentMethodDAO {
         return null;
     }
 
+    /** payment_method_id 로 결제 방식(method_type) 조회 (예: CARD, KAKAO_PAY 등) */
     public String getMethodType(Long paymentMethodId) {
         String sql = "SELECT method_type FROM payment_method WHERE payment_method_id = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -81,3 +91,4 @@ public class PaymentMethodDAO {
     }
 
 }
+

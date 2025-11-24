@@ -1,3 +1,9 @@
+/**
+ * AddressDAO
+ * - 구현된 CRUD 기능:
+ *      C: insertAddress() — 신규 주소 등록
+ */
+
 package dao;
 
 import db.DBConnection;
@@ -8,6 +14,7 @@ import java.sql.SQLException;
 
 public class AddressDAO {
 
+    /** 신규 주소 생성 및 저장 */
     public boolean insertAddress(Address address) {
         String sql = "INSERT INTO address " +
                 "(user_id, nickname, recipient_name, address_line1, address_line2, city, state, postal_code, country, address_type, is_default, created_at, updated_at) " +
@@ -36,6 +43,7 @@ public class AddressDAO {
         }
     }
 
-
 }
+
+
 
