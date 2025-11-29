@@ -58,5 +58,25 @@ public class UserDAO {
         return null;
     }
 
+    public Long getUserIdByEmailAndPassword(String email, String password) {
+        String sql = "SELECT user_id FROM public.user WHERE email = ? AND password_hash = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, email);
+            pstmt.setString(2, password);  // 실제로는 hash 비교하는 게 일반적
+
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) return rs.getLong("user_id");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }
+
 

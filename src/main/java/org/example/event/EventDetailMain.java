@@ -19,9 +19,9 @@ public class EventDetailMain {
         Event event = eventDAO.getEventByTitle(title);
 
         if (event == null) {
-            System.out.println("❌ 해당 제목의 공연을 찾을 수 없습니다.");
+            System.out.println("해당 제목의 공연을 찾을 수 없습니다.");
         } else {
-            System.out.println("\n===== 🎭 공연 상세 정보 =====\n");
+            System.out.println("\n===== 공연 상세 정보 =====\n");
             System.out.println("공연명: " + event.getTitle());
             System.out.println("설명: " + event.getDescription());
             System.out.println("상태: " + event.getStatus());
@@ -29,11 +29,11 @@ public class EventDetailMain {
         }
 
         // 좌석 정보 추가
-        System.out.println("\n===== 💺 좌석 정보 =====\n");
+        System.out.println("\n===== 좌석 정보 =====\n");
         List<String> seatList = eventDAO.getSeatInfoByEventId(event.getEventId());
 
         if (seatList.isEmpty()) {
-            System.out.println("⚠ 현재 등록된 좌석 정보가 없습니다.");
+            System.out.println("현재 등록된 좌석 정보가 없습니다.");
         } else {
             for (String seat : seatList) {
                 System.out.println(seat);

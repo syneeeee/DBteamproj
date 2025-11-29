@@ -12,6 +12,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class AddressDAO {
 
     /** 신규 주소 생성 및 저장 */
@@ -43,7 +48,36 @@ public class AddressDAO {
         }
     }
 
+    public List<Address> getAddressesByUserId(Long userId) {
+        // 예시 SQL
+        String sql = "SELECT * FROM address WHERE user_id = ?";
+        List<Address> result = new ArrayList<>();
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setLong(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Address address = new Address();
+                address.setAddressId(rs.getLong("address_id"));
+                address.setAddressLine1(rs.getString("address_line1"));
+                address.setAddressLine2(rs.getString("address_line2"));
+                address.setNickname(rs.getString("nickname"));
+                result.add(address);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
 }
+
+
+
 
 
 

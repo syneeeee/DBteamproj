@@ -22,15 +22,14 @@ public class UserRegisterMain {
         boolean result = userDAO.insertUser(user);
 
         if (result) {
-            System.out.println("🎉 회원가입 성공!");
+            System.out.println("회원가입 성공!");
 
             // user_id 조회해 User 객체에 저장
             Long userId = userDAO.getUserIdByEmail(email);
             user.setUserId(userId);
 
-            System.out.println("📌 user_id = " + user.getUserId());
         } else {
-            System.out.println("❌ 회원가입 실패");
+            System.out.println("회원가입 실패");
         }
 
         sc.close();

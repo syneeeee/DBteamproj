@@ -3,6 +3,7 @@ package org.example.address;
 import dao.AddressDAO;
 import dto.Address;
 import java.util.Scanner;
+import dao.UserDAO;
 
 public class AddressRegisterMain {
     public static void main(String[] args) {
@@ -10,10 +11,23 @@ public class AddressRegisterMain {
         Scanner sc = new Scanner(System.in);
         AddressDAO addressDAO = new AddressDAO();
 
+        UserDAO userDAO = new UserDAO();  // 추가
+
         System.out.println("=== 주소 등록 ===");
 
-        System.out.print("user_id: ");
-        Long userId = Long.parseLong(sc.nextLine());
+        // user_id 입력 대신 email + password
+        System.out.print("이메일: ");
+        String email = sc.nextLine();
+
+        System.out.print("비밀번호: ");
+        String password = sc.nextLine();
+
+        Long userId = userDAO.getUserIdByEmailAndPassword(email, password);
+
+        if (userId == null) {
+            System.out.println("사용자 인증 실패");
+            return;
+        }
 
         System.out.print("별칭: ");
         String nickname = sc.nextLine();
@@ -42,12 +56,14 @@ public class AddressRegisterMain {
         boolean result = addressDAO.insertAddress(address);
 
         if (result) {
-            System.out.println("📍 주소 등록 완료!");
+            System.out.println("주소 등록 완료!");
         } else {
-            System.out.println("❌ 주소 등록 실패");
+            System.out.println("주소 등록 실패");
         }
 
         sc.close();
     }
 }
+
+
 
